@@ -1,0 +1,105 @@
+<div class="simplenews-list-content">
+    <button id="modal-btn" type="submit">Open Modal</button>
+    <button id="modal-btn-login" type="submit">Open Magento Login Modal</button>
+    <button id="modal-btn-custom" type="submit">Open Custom Login Modal</button>
+    <button><span id="purple">Purple</span></button>
+</div>
+<div id="modal-content">
+    <div class="modal-inner-content">
+        <h2>Modal Title</h2>
+        <p>Hello World</p>
+    </div>
+</div>
+<div id="modal-login">
+    <form class="form form-login"
+            action="<?= $block->escapeUrl($block->getUrl('customer/account/loginPost')) ?>"
+            method="post"
+            id="login-form"
+            data-mage-init='{"validation":{}}'
+            style="background-color: burlywood;height: 300px;">
+        <?= $block->getBlockHtml('formkey') ?>
+        <fieldset class="fieldset login" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>" style="margin-left: 500px;">
+            <div class="field note" style="margin-top: 50px;"><?= $block->escapeHtml(__('If you have an account, sign in with your email address.')) ?></div>
+            <div class="field email required">
+                <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                <div class="control" style="float: right; margin-right: 550px;">
+                    <input name="login[username]" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" style="width: auto;"
+                            id="email" type="email" class="input-text"
+                            title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                            data-mage-init='{"mage/trim-input":{}}'
+                            data-validate="{required:true, 'validate-email':true}">
+                </div>
+            </div>
+            <div class="field password required">
+                <label for="pass" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+                <div class="control" style="float: right; margin-right: 550px;">
+                    <input name="login[password]" type="password" style="width: fit-content;"
+                            class="input-text" id="pass"
+                            title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+                            data-validate="{required:true}">
+                </div>
+            </div>
+            <?= $block->getChildHtml('form_additional_info') ?>
+            <div class="actions-toolbar">
+                <div class="primary" style="margin-left: 115px;"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Sign In')) ?></span></button></div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script>
+    require(
+        [
+            "jquery", 
+            "Magento_Ui/js/modal/modal",
+            "Magento_Ui/js/modal/alert"
+        ],function($, modal, alert) {
+            var options1 = {
+                type: 'popup',
+                responsive: true,
+                title: 'Hello World',
+                buttons: [{ 
+                    text: $.mage.__('Close'),
+                    class: 'modal-close',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            var options2 = {
+                type: 'popup',
+                responsive: true,
+                title: 'Login Modal',
+                buttons: [{ 
+                    text: $.mage.__('Close'),
+                    class: 'modal-close',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+    
+            var popup1 = modal(options1, $('#modal-content'));
+            $("#modal-btn-custom").on('click',function(){
+                // alert('hello World');
+                $('#modal-content').modal('openModal');
+            });
+
+            $("#modal-btn").on('click',function(){
+                alert({
+                title: $.mage.__('Some title'),
+                content: $.mage.__('Hello World'),
+                actions: {
+                    always: function(){}
+                }
+                    });
+            });
+
+            var popup2 = modal(options2, $('#modal-login'));
+            $("#modal-btn-login").on('click',function(){
+                // alert('hello World');
+                $('#modal-login').modal('openModal');
+            });
+        }
+    );
+</script>

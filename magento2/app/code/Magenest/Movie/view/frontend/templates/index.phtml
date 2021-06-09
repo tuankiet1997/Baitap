@@ -1,0 +1,93 @@
+<?php
+    $movieData = $block->getConllection();
+?>
+<div class="simplenews">
+   <?php
+      if (count($movieData) > 0) :
+   ?>
+      <div class="toolbar top">
+         <?php echo $block->getPagerHtml(); ?>
+      </div>
+
+      <ul>
+         <?php foreach ($movieData as $movie) : ?>
+            <li>
+               <div class="simplenews-list">
+                  <a class="news-title" href="<?php echo $this->getUrl('magenest/data/view',['id' => $movie['movie_id']]) ?>"><?php echo $movie['name'] ?></a>
+                  <div class="simplenews-list-content">
+                        <lable><p style="background-color: antiquewhite;">Description :</p></lable>
+                        <?php echo $movie['description'] ?>
+                  </div>
+                  <div class="simplenews-list-content">
+                    <lable><p style="background-color: antiquewhite;">Rating :</p></lable>
+                     <?php echo $movie['rating'] ?>
+                  </div>
+                  <div class="simplenews-list-content">
+                  <lable><p style="background-color: antiquewhite;">Director :</p></lable>
+                    <?php 
+                        $dataDirector = $block->getDataDirectorById($movie['director_id']);
+                        echo $dataDirector['name'];
+                    ?>
+                  </div>
+                  <div class="simplenews-list-content">
+                  <lable><p style="background-color: antiquewhite;">Actor :</p></lable>
+                    <?php 
+                        $arrayActorId = $block->getActorByMovie($movie['movie_id']);
+                        
+                        foreach($arrayActorId as $actorId){
+                           $dataActor = $block->getDataActorById($actorId['actor_id']);
+                           echo $dataActor['name'];
+                        }
+                        
+                    ?>
+                  </div>
+               </div>
+            </li>
+         <?php endforeach; ?>
+      </ul>
+      <div style="clear: both"></div>
+      <div class="toolbar-bottom">
+         <div class="toolbar bottom">
+            <?php echo $block->getPagerHtml(); ?>
+         </div>
+      </div>
+   <?php else : ?>
+      <p><?php echo __('Have no article!') ?></p>
+   <?php endif; ?>
+</div>
+<style>
+.simplenews > ul {
+   list-style: none;
+   padding: 0;
+}
+.simplenews > ul li {
+   padding: 10px 5px;
+   margin: 0;
+   background-color: #fff;
+   border-bottom: 1px #c4c1bc solid;
+   display: inline-block;
+   width: 100%;
+}
+.simplenews > ul li:last-child {
+   border-bottom: none;
+}
+.simplenews-list {
+   float: left;
+   position: relative;
+   margin-left: 10px;
+   width: 100%;
+}
+.simplenews-list a.news-title {
+   font-weight: bold;
+}
+.simplenews-list a.news-title:hover {
+   text-decoration: none;
+}
+.block-simplenews .block-title {
+   margin: 0px 0px 20px;
+}
+.block-simplenews-heading {
+   font-size: 18px;
+   font-weight: 300;
+}
+</style>

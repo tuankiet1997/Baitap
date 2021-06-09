@@ -1,0 +1,39 @@
+<?php 
+    $movieData =  $block->getMovieData();
+    $submiturl = $block->getUrl('magenest/actor/AddPost');
+?>
+<form method="GET" action="<?php echo $submiturl; ?>"  style="display: flex; flex-direction: column;">
+    <div class="admin__field-control" style="order:1">
+        <lable><span>Actor :</span></lable>
+        <select name="history[movie]" id="history_director" class="admin__control-select">
+        <option value=""><?php echo __('--Please Select--')?></option>
+            <?php
+                foreach ($movieData as $_code => $_label):
+            ?>
+                <option value="<?php echo $_label['movie_id']; ?>"><?php echo $block->escapeHtml($_label['name']); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    </br>
+    <div class="admin__field-control" style="order:1">
+    <lable><span>Name Actor :</span></lable>
+       <input type="text" name="name"></input>
+    </div>
+    <div class="page-main-actions" ng-show="!$root.isMarketplaceAuthorized">
+        <div class="page-actions">
+            <div class="page-actions-inner">
+                <div class="page-actions-buttons">
+                <a href="<?php echo $block->getUrl("*/*/")?>" class="btn btn-danger btn-lg btn-back" style="font-size: 1.6rem;
+                padding-top: 0.6875em;
+                color: #514943;
+                text-decoration: none;">
+                            <span><?php echo __('Back') ?></span>
+                </a>
+                    <button title="Save Config" type="submit" class="action-primary">
+                        <span>Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

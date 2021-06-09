@@ -1,0 +1,14 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Magenest_Movie::js/validate.js"/>
+    </head>
+    <body>
+           <referenceBlock name="customer_form">
+             <block class="Magenest\Movie\Block\Adminhtml\Edit\Tab\TabAvatar" name="customer_edit_tab_credit" >
+              <action method="setTabLabel">
+                  <argument name="label" xsi:type="string">Customer Avatar</argument>
+              </action>
+            </block>
+          </referenceBlock>
+    </body>
+</page>

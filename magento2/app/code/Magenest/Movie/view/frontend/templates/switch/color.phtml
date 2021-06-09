@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Store\Block\Switcher $block */
+?>
+<?php
+    $block->getConfigRule();
+?>
+<select name="color_setting" id="color_setting" class="admin__control-select">
+        <option value=""><?php echo __('--Please Select--')?></option>
+            <?php
+                foreach ($block->getConfigRule() as $_code => $_label):
+            ?>
+                <option value="<?php echo $_label['color_code']; ?>"><?php echo $block->escapeHtml($_label['color_text']); ?></option>
+            <?php endforeach; ?>
+        </select>

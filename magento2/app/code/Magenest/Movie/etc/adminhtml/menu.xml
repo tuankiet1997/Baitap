@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magenest_Movie::movie" title="Movie" module="Magenest_Movie" sortOrder="41" resource="Magenest_Movie::menu"/>
+        <add id="Magenest_Movie::parent" title="Magenest Post" module="Magenest_Movie" sortOrder="10" resource="Magenest_Movie::menu" parent="Magenest_Movie::movie"/>
+        <add id="Magenest_Movie::magenestmovie" title="Magenest Movie" module="Magenest_Movie" sortOrder="10" action="magenest/movie/index" resource="Magenest_Movie::post" parent="Magenest_Movie::parent"/>
+        <add id="Magenest_Movie::magenestdirector" title="Magenest Director" module="Magenest_Movie" sortOrder="20" parent="Magenest_Movie::parent" action="magenest/director/index" resource="Magenest_Movie::parent"/>
+        <add id="Magenest_Movie::magenestactor" title="Magenest Actor" module="Magenest_Movie" sortOrder="20" parent="Magenest_Movie::parent" action="magenest/actor/index" resource="Magenest_Movie::parent"/>
+    </menu>
+
+    <menu>
+        <add id="Magenest_Movie::page" title="Page Requetes to Day" module="Magenest_Movie" sortOrder="50" parent="Magenest_Movie::movie" resource="Magenest_Movie::menu"/>
+        <add id="Magenest_Movie::magenestpage" title="Magenest Page" module="Magenest_Movie" sortOrder="20" parent="Magenest_Movie::page" action="magenest/page/index" resource="Magenest_Movie::parent"/>
+    </menu>
+
+    <menu>
+        <add id="Magenest_Movie::blog" title="Blog" module="Magenest_Movie" sortOrder="50" parent="Magenest_Movie::movie" resource="Magenest_Movie::menu"/>
+        <add id="Magenest_Movie::magenestblog" title="Magenest Blog" module="Magenest_Movie" sortOrder="20" parent="Magenest_Movie::blog" action="magenest/blog/index" resource="Magenest_Movie::parent"/>
+    </menu>
+
+     <menu>
+        <add id="Magenest_Movie::banner" title="banner" module="Magenest_Movie" sortOrder="50" parent="Magenest_Movie::movie" resource="Magenest_Movie::menu"/>
+        <add id="Magenest_Movie::magenestbanner" title="Magenest Banner" module="Magenest_Movie" sortOrder="20" parent="Magenest_Movie::banner" action="magenest/banner/index" resource="Magenest_Movie::parent"/>
+    </menu>
+</config>

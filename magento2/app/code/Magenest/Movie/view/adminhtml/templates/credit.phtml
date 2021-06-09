@@ -1,0 +1,7 @@
+<div class="block-title" style="margin-bottom: 30px;"><strong><?= $block->escapeHtml(__('Avatar Customer')) ?></strong></div>
+    <?php if ($url = $block->getFileUrl()): ?>
+    <div class="field">
+        <img src="<?php echo $url ?>" alt="image" style="width: 250px;"/>
+    </div>
+    <?php endif;?>
+</div>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magenest" translate="label" sortOrder="10">
+            <label>Magenest</label>
+        </tab>
+        <section id="setting" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>magenest-movie</class>
+            <label>Movie</label>
+            <tab>magenest</tab>
+            <resource>Magenest_Movie::Configuration</resource>
+            <group id="post" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Movie Configuration</label>
+                <field id="display_text" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Field</label>
+                </field>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Yes/No_Field_​ abcd</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="custom_select" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1">
+                    <label>Custom Select Field</label>
+                    <source_model>Magenest\Movie\Model\Config\Source\Summary</source_model>
+                </field>
+                <field id="magenest_movie" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Rows in table "magenest_movie"</label>
+                </field>
+                <field id="magenest_actor" translate="label" type="text" sortOrder="4"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Rows in table "magenest_actor"</label>
+                </field>
+                <field id="button_id" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Field</label>
+                    <frontend_model>Magenest\Movie\Block\System\Config\Button</frontend_model>
+                </field>
+            </group>
+
+            <group id="setting" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Configuration</label>
+                <field id="custom_time" translate="label" sortOrder="550" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Manage customer time</label>
+                    <backend_model>Magenest\Movie\Block\Adminhtml\Config\Backend\ArraySerializedHolidays</backend_model>
+                    <frontend_model>Magenest\Movie\Block\Adminhtml\CustomDataFields</frontend_model>
+                </field>
+            </group>
+
+             <group id="customer_rule" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Rule Configuration</label>
+                <field id="customer_text" translate="label" sortOrder="550" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Manage customer rule</label>
+                    <   >Magenest\Movie\Block\Adminhtml\Config\Backend\CustomerRuleConfig</backend_model>
+                    <frontend_model>Magenest\Movie\Block\Adminhtml\CustomerRuleData</frontend_model>
+                </field>
+            </group>
+
+            <group id="color_option" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Setting Color</label>
+                <field id="color_setting" translate="label" sortOrder="550" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Color option</label>
+                    <backend_model>Magenest\Movie\Block\Adminhtml\Config\Backend\ColorConfig</backend_model>
+                    <frontend_model>Magenest\Movie\Block\Adminhtml\ColorData</frontend_model>
+                </field>
+            </group>
+
+        </section>
+
+        <tab id="bss" translate="label" sortOrder="300">           
+            <label><![CDATA[Bss Commerce]]></label>
+        </tab>
+        <section id="email" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Bss Email Demo</label>
+            <tab>bss</tab>
+            <resource>Bss_EmailDemo::config_emaildemo</resource>
+            <group id="demo" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Please Choose Your Email Template</label>
+                <field id="template" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>Email template is chosen based on theme fallback when "Default" option is selected.</comment>
+                </field>            
+            </group>
+        </section>
+    </system>
+</config>
+

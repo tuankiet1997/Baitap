@@ -1,0 +1,84 @@
+<?php 
+$customerData = count($block->getFilteredCustomerCollection());
+$productData = count($block->getFilteredProductCollection());
+$allModule = count($block->modulesList());
+$orderData = count($block->getOrderCollection());
+$invoiceData = $block->getInvoiceCollection();
+$creditmemos = $block->getCreditmemosCollection();
+?>
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title">Requests Made Today</span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <div class="admin__page-section-item-title">
+                <span class="title">
+                        <span class="title"><?php echo $block->escapeHtml(__('Total Requests Today')) ?></span>
+                </span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <lable><span>All Module in Magento :</span><?= $allModule ?></lable>
+            </div>
+        </div>
+
+        <div class="admin__page-section-item order-information">
+            <div class="admin__page-section-item-title">
+                <span class="title">
+                        <span class="title"><?php echo $block->escapeHtml(__('Detail')) ?></span>
+                </span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-information-table">
+                    <tr>
+                        <th><?php echo $block->escapeHtml(__('Numbers of Customers')) ?></th>
+                        <td>
+                            <?php if($customerData != 0):?>
+                                <?php echo $customerData;?>
+                            <?php else:?>
+                                <?php echo "No requests has been made to day"; ?>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $block->escapeHtml(__('Numbers Products')) ?></th>
+                        <td>
+                            <?php if($productData != 0):?>
+                                <?php echo $productData;?>
+                            <?php else:?>
+                                <?php echo "No requests has been made to day"; ?>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $block->escapeHtml(__('Numbers Orders')) ?></th>
+                        <td><span id="order_status"></span>
+                            <?php if($orderData != 0):?>
+                                <?php echo $orderData;?>
+                            <?php else:?>
+                                <?php echo "No requests has been made to day"; ?>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    </br>
+                    <tr>
+                        <th><?php echo $block->escapeHtml(__('Numbers Invoices')) ?></th>
+                        <td><?php if($invoiceData->getSize() != 0):?>
+                                <?php echo $invoiceData->getSize();?>
+                            <?php else:?>
+                                <?php echo "No requests has been made to day"; ?>
+                            <?php endif;?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $block->escapeHtml(__('Creditmemos currently')) ?></th>
+                        <td><?php if($creditmemos->getSize() != 0):?>
+                                <?php echo $creditmemos->getSize();?>
+                            <?php else:?>
+                                <?php echo "No requests has been made to day"; ?>
+                            <?php endif;?></td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">movie_data_form.movie_data_form_data_source</item>
+            <item name="deps" xsi:type="string">movie_data_form.movie_data_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Sample Form</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Magenest\Movie\Block\Adminhtml\Movie\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">Magenest\Movie\Block\Adminhtml\Movie\Edit\DeleteButton</item>
+            <item name="reset" xsi:type="string">Magenest\Movie\Block\Adminhtml\Movie\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">Magenest\Movie\Block\Adminhtml\Movie\Edit\SaveButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="movie_data_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magenest\Movie\Model\Contact\DataProvider</argument>
+            <argument name="name" xsi:type="string">movie_data_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">movie_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+           <submitUrl path="magenest/movie/addPost"/>
+       </settings>
+    </dataSource>
+
+    <fieldset name="contact">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Movie New</item>
+            </item>
+        </argument>
+        <!-- This field represents form id and is hidden -->
+        <field name="movie_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">contact</item>
+                </item>
+            </argument>
+        </field>
+
+        <!-- This field has data type 'text' and standard 'input' form element and looks like input -->
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">contact</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+    <container name="dynamic_rows_container">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+            <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+            <item name="template" xsi:type="string">ui/dynamic-rows/templates/default</item>
+            <item name="componentType" xsi:type="string">dynamicRows</item>
+            <item name="label" xsi:type="string" translate="true">Price</item>
+            <item name="recordTemplate" xsi:type="string">record</item>
+            <item name="addButtonLabel" xsi:type="string">Add Row</item>
+            <item name="deleteProperty" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+
+        <container name="record">
+            <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Price</item>
+                <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
+                <item name="isTemplate" xsi:type="boolean">true</item>
+                <item name="is_collection" xsi:type="boolean">true</item>
+                <item name="showFallbackReset" xsi:type="boolean">false</item>
+            </item>
+            </argument>
+            <field name="price_movie">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Price Movie</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="dataScope" xsi:type="string">price_movie</item>
+                <item name="showFallbackReset" xsi:type="boolean">false</item>
+                <item name="validation" xsi:type="array">
+                    <item name="required-entry" xsi:type="boolean">true</item>
+                </item>
+                <item name="sortOrder" xsi:type="string">10</item>
+                </item>
+            </argument>
+            </field>
+            <field name="chair_id">
+            <argument name="data" xsi:type="array">
+            <item name="options" xsi:type="object">Magenest\Movie\Model\Config\Source\ChairConfig</item>
+                <item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Chair Type</item>
+                <item name="formElement" xsi:type="string">select</item>
+                <item name="dataScope" xsi:type="string">chair_id</item>
+                <item name="showFallbackReset" xsi:type="boolean">false</item>
+                <item name="validation" xsi:type="array">
+                    <item name="required-entry" xsi:type="boolean">true</item>
+                </item>
+                <item name="sortOrder" xsi:type="string">11</item>
+                </item>
+            </argument>
+            </field>
+            <actionDelete>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                <item name="componentType" xsi:type="string">actionDelete</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="fit" xsi:type="boolean">false</item>
+                        <item name="label" xsi:type="string">Actions</item>
+                        <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                        <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                    </item>
+                </argument>
+            </actionDelete>
+       </container>
+   </container>
+
+        <field name="description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Description</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">contact</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="rating">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Rating</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">contact</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        
+
+        <field name="director_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magenest\Movie\Model\Config\Source\DirectorConfig</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Director</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">contact</item>
+                </item>
+            </argument>
+        </field>
+
+    </fieldset>
+</form>

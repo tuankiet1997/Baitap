@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+		<referenceContainer name="content">
+			<block class="Magenest\Movie\Block\Adminhtml\Page\Index" name="page_index" template="Magenest_Movie::page.phtml" />
+        </referenceContainer>
+        <!-- <referenceContainer name="left">
+            <block class="Magenest\Movie\Block\Adminhtml\Page\IndexColumns" name="page_index_columns" template="Magenest_Movie::pageColumns.phtml" />
+        </referenceContainer> -->
+	</body>
+</page>

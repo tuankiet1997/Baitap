@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="POST" url="/V1/create/blog">
+		<service class="Magenest\Movie\Api\BlogAddInterface" method="getAdd"/>
+		<resources>
+            <resource ref="anonymous"/>
+        </resources>
+	</route>
+
+    <route method="POST" url="/V1/create/blog/:id">
+		<service class="Magenest\Movie\Api\BlogViewInterface" method="getView"/>
+		<resources>
+            <resource ref="anonymous"/>
+        </resources>
+	</route>
+
+	<route method="DELETE" url="/V1/delete/blog/:id">
+		<service class="Magenest\Movie\Api\BlogDeleteInterface" method="Delete"/>
+		<resources>
+            <resource ref="anonymous"/>
+        </resources>
+	</route>
+
+</routes>

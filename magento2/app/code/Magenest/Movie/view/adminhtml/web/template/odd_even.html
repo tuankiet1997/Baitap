@@ -1,0 +1,28 @@
+<div class="field required review-field-ratings">
+    <div class="control review-control-vote" >
+        <!--  ko foreach: $row.getLabel($col())   -->
+        <!-- ko if: $export_status == "Odd" echo 'sss'-->
+        <span style="background: #feeee1 none repeat scroll 0 0;
+        border: 1px solid #ed4f2e;
+        color: #ed4f2e;
+        display: block;
+        font-weight: bold;
+        line-height: 17px;
+        padding: 0 3px;
+        text-align: center;
+        text-transform: uppercase;">Odd</span>
+        <!--/ko-->
+        <!-- ko if: $export_status != "Odd"-->
+        <span style="background: #feeee1 none repeat scroll 0 0;
+        border: 1px solid #1b830d;
+        color: #1b830d;
+        display: block;
+        font-weight: bold;
+        line-height: 17px;
+        padding: 0 3px;
+        text-align: center;
+        text-transform: uppercase;">Even</span>
+        <!--/ko-->
+        <!--    /ko    -->
+    </div>
+</div>

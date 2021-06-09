@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Magenest_Movie::js/kiet.js"/>
+    </head>
+    <body>
+        <referenceBlock name="content">
+            <block class="Magenest\Movie\Block\MembershipRenewals" name="membership.renewals" template="Magenest_Movie::membership_renew.phtml" cacheable="false"></block>
+        </referenceBlock>
+    </body>
+</page>

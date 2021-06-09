@@ -1,0 +1,52 @@
+<?php 
+    $directorData =  $block->getDirectorData();
+    $submiturl = $block->getUrl('magenest/movie/AddPost');
+    var_dump($block->getBlogData());die();
+?>
+<form method="GET" action="<?php echo $submiturl; ?>"  style="display: flex; flex-direction: column;">
+    <div class="admin__field-control" style="order:1">
+        <lable><span>Director :</span></lable>
+        <select name="history[director]" id="history_director" class="admin__control-select">
+        <option value=""><?php echo __('--Please Select--')?></option>
+            <?php
+                foreach ($directorData as $_code => $_label):
+            ?>
+                <option value="<?php echo $_label['director_id']; ?>"><?php echo $block->escapeHtml($_label['name']); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    </br>
+    <div class="admin__field-control" style="order:1">
+    <lable><span>Name Movie :</span></lable>
+       <input type="text" name="name"></input>
+    </div>
+    <div class="admin__field-control" style="order:1">
+    <lable><span>Rating :</span></lable>
+       <input type="text" name="rating"></input>
+    </div>
+    <div class="admin__field-control" style="order:1">
+    <lable><span>Description :</span></lable>
+        <textarea name="history[description]"
+                rows="3"
+                cols="5"
+                id="history_description"
+                class="admin__control-textarea"></textarea>
+    </div>
+    <div class="page-main-actions" ng-show="!$root.isMarketplaceAuthorized">
+        <div class="page-actions">
+            <div class="page-actions-inner">
+                <div class="page-actions-buttons">
+                <a href="<?php echo $block->getUrl("*/*/")?>" class="btn btn-danger btn-lg btn-back" style="font-size: 1.6rem;
+                padding-top: 0.6875em;
+                color: #514943;
+                text-decoration: none;">
+                            <span><?php echo __('Back') ?></span>
+                </a>
+                    <button title="Save Config" type="submit" class="action-primary">
+                        <span>Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

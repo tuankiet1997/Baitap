@@ -1,0 +1,12 @@
+<div class="field required review-field-ratings">
+    <div class="control review-control-vote" >
+        <!--  ko foreach: $col.getLabel($row())   -->
+        <!-- ko if: $data == "1"-->
+        <span style="color: rgb(255, 217, 0);">★</span>
+        <!--/ko-->
+        <!-- ko if: $data != "1"-->
+        <span style="color: rgb(204, 204, 204);">★</span>
+        <!--/ko-->
+        <!--    /ko    -->
+    </div>
+</div>

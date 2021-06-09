@@ -1,0 +1,17 @@
+<?php /* @var $block \Mageplaza\HelloWorld\Block\System\Config\Collect */ ?>
+<script>
+    require([
+        'jquery',
+        'prototype'
+    ], function(jQuery){
+
+        var collectSpan = jQuery('#collect_span');
+
+        jQuery('#collect_button').click(function () {
+            location.reload(true);
+        });
+
+    });
+</script>
+
+<?php echo $block->getButtonHtml() ?>

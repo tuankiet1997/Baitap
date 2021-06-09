@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="magenest_director" resource="default" engine="innodb" comment="magenest director Table">
+        <column xsi:type="int" name="director_id" padding="10" unsigned="false" nullable="false" identity="true" comment="Director ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="director_id"/>
+        </constraint>
+    </table>
+    <table name="magenest_movie" resource="default" engine="innodb" comment="magenest movie Table">
+        <column xsi:type="int" name="movie_id" padding="10"  unsigned="false" nullable="false" identity="true" comment="Movie ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <column xsi:type="text" name="description" comment="Description"/>
+        <column xsi:type="int" name="rating" padding="10" unsigned="false" nullable="false" default="0" comment="Rating"/>
+        <column xsi:type="int" name="director_id" padding="10" unsigned="false" nullable="false" identity="false" comment="Director ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="movie_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MAG_DIR_DIR_ID_MAG_MOV_DIR_ID"
+                    table="magenest_movie" column="director_id" referenceTable="magenest_director"
+                    referenceColumn="director_id" onDelete="CASCADE"/>
+    </table>
+
+    <table name="magenest_price_chair" resource="default" engine="innodb" comment="magenest chair price Table">
+        <column xsi:type="int" name="id" padding="10"  unsigned="false" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="movie_id" padding="10"  unsigned="false" nullable="false" identity="false" comment="Movie ID"/>
+        <column xsi:type="decimal" name="price_movie" scale="4" precision="20" unsigned="false" nullable="true"
+                default="0" comment="Price Movie"/>
+        <column xsi:type="int" name="chair_id" padding="10"  unsigned="false" nullable="false" identity="false" comment="Chair ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+         <constraint xsi:type="foreign" referenceId="CHAIR_ID"
+                    table="magenest_price_chair" column="chair_id" referenceTable="magenest_chair_type"
+                    referenceColumn="chair_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="MOV_ID"
+                    table="magenest_price_chair" column="movie_id" referenceTable="magenest_movie"
+                    referenceColumn="movie_id" onDelete="CASCADE"/>
+    </table>
+
+    <table name="magenest_chair_type" resource="default" engine="innodb" comment="magenest chair Table">
+        <column xsi:type="int" name="chair_id" padding="10"  unsigned="false" nullable="false" identity="true" comment="Chair ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="chair_id"/>
+        </constraint>
+    </table>
+
+    <table name="magenest_chair" resource="default" engine="innodb" comment="magenest chair Table">
+        <column xsi:type="int" name="id" padding="10"  unsigned="false" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="chair_id" padding="10"  unsigned="false" nullable="false" identity="false" comment="Chair ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CHARI_ID"
+                    table="magenest_chair" column="chair_id" referenceTable="magenest_chair_type"
+                    referenceColumn="chair_id" onDelete="CASCADE"/>
+    </table>
+
+
+    <table name="magenest_data_checkout" resource="default" engine="innodb" comment="magenest checkout Table">
+        <column xsi:type="int" name="id" padding="10"  unsigned="false" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <column xsi:type="text" name="showtime" comment="Showtime"/>
+        <column xsi:type="text" name="room" comment="Room"/>
+        <column xsi:type="decimal" name="price_movie" scale="4" precision="20" unsigned="false" nullable="true"
+                default="0" comment="Price Movie"/>
+        <column xsi:type="text" name="chair" comment="Chair"/>
+        <column xsi:type="text" name="typechair" comment="TypeChair"/>
+        <column xsi:type="int" name="customer_id" padding="10"  unsigned="false" nullable="false" identity="false" comment="Customer ID"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <table name="magenest_duplicate_chair" resource="default" engine="innodb" comment="magenest movie Table">
+        <column xsi:type="int" name="id" padding="10"  unsigned="false" nullable="false" identity="false" comment="ID"/>
+        <column xsi:type="int" name="chair_id" padding="10"  unsigned="false" nullable="false" identity="false" comment="Chair ID"/>
+        <constraint xsi:type="foreign" referenceId="CHARI_AND_ID"
+                    table="magenest_duplicate_chair" column="id" referenceTable="magenest_chair"
+                    referenceColumn="id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="ID_AND_ID"
+                    table="magenest_duplicate_chair" column="chair_id" referenceTable="magenest_chair_type"
+                    referenceColumn="chair_id" onDelete="CASCADE"/>
+    </table>
+
+    <table name="magenest_actor" resource="default" engine="innodb" comment="magenest actor Table">
+        <column xsi:type="int" name="actor_id" padding="10" unsigned="false" nullable="false" identity="true" comment="Actor ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="actor_id"/>
+        </constraint>
+    </table>
+    <table name="magenest_movie_actor" resource="default" engine="innodb" comment="magenest movie Table">
+        <column xsi:type="int" name="movie_id" padding="10"  unsigned="false" nullable="false" identity="false" comment="Movie ID"/>
+        <column xsi:type="int" name="actor_id" padding="10" unsigned="false" nullable="false" identity="false" comment="Actor ID"/>
+        <constraint xsi:type="foreign" referenceId="MAG_MOV_MOV_ID_MAG_MOV_MOV_ID"
+                    table="magenest_movie_actor" column="movie_id" referenceTable="magenest_movie"
+                    referenceColumn="movie_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="MAG_ACT_ACT_ID_MAG_MOV_ACT_ID"
+                    table="magenest_movie_actor" column="actor_id" referenceTable="magenest_actor"
+                    referenceColumn="actor_id" onDelete="CASCADE"/>
+    </table>
+
+    <!-- create column in table sale_order -->
+    <!-- <table name="sales_order">
+        <column xsi:type="int" name="director_id" padding="10" unsigned="false" nullable="false" identity="true" comment="Director ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="director_id"/>
+        </constraint>
+    </table> -->
+
+
+    <table name="customer_entity" resource="default" engine="innodb" comment="Customer Entity">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="smallint" name="website_id" unsigned="true" nullable="true" identity="false"
+                comment="Website ID"/>
+        <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+        <column xsi:type="smallint" name="group_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Group ID"/>
+        <column xsi:type="smallint" name="is_b2b" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Is B2B"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="50" comment="Increment ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false"
+                default="0" comment="Store ID"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="smallint" name="is_active" unsigned="true" nullable="false" identity="false"
+                default="1" comment="Is Active"/>
+        <column xsi:type="smallint" name="disable_auto_group_change" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Disable automatic group change based on VAT ID"/>
+        <column xsi:type="varchar" name="created_in" nullable="true" length="255" comment="Created From"/>
+        <column xsi:type="varchar" name="avatar" nullable="true" length="255" comment="Logo Image"/>
+        <column xsi:type="varchar" name="prefix" nullable="true" length="40" comment="Name Prefix"/>
+        <column xsi:type="varchar" name="firstname" nullable="true" length="255" comment="First Name"/>
+        <column xsi:type="varchar" name="middlename" nullable="true" length="255" comment="Middle Name/Initial"/>
+        <column xsi:type="varchar" name="lastname" nullable="true" length="255" comment="Last Name"/>
+        <column xsi:type="varchar" name="suffix" nullable="true" length="40" comment="Name Suffix"/>
+        <column xsi:type="date" name="dob" comment="Date of Birth"/>
+        <column xsi:type="varchar" name="password_hash" nullable="true" length="128" comment="Password_hash"/>
+        <column xsi:type="varchar" name="rp_token" nullable="true" length="128" comment="Reset password token"/>
+        <column xsi:type="datetime" name="rp_token_created_at" on_update="false" nullable="true"
+                comment="Reset password token creation time"/>
+        <column xsi:type="int" name="default_billing" unsigned="true" nullable="true" identity="false"
+                comment="Default Billing Address"/>
+        <column xsi:type="int" name="default_shipping" unsigned="true" nullable="true" identity="false"
+                comment="Default Shipping Address"/>
+        <column xsi:type="varchar" name="taxvat" nullable="true" length="50" comment="Tax/VAT Number"/>
+        <column xsi:type="varchar" name="confirmation" nullable="true" length="64" comment="Is Confirmed"/>
+        <column xsi:type="smallint" name="gender" unsigned="true" nullable="true" identity="false"
+                comment="Gender"/>
+        <column xsi:type="smallint" name="failures_num" unsigned="false" nullable="true" identity="false"
+                default="0" comment="Failure Number"/>
+        <column xsi:type="timestamp" name="first_failure" on_update="false" nullable="true" comment="First Failure"/>
+        <column xsi:type="timestamp" name="lock_expires" on_update="false" nullable="true"
+                comment="Lock Expiration Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CUSTOMER_ENTITY_STORE_ID_STORE_STORE_ID" table="customer_entity"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="CUSTOMER_ENTITY_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID"
+                    table="customer_entity" column="website_id" referenceTable="store_website"
+                    referenceColumn="website_id" onDelete="SET NULL"/>
+        <constraint xsi:type="unique" referenceId="CUSTOMER_ENTITY_EMAIL_WEBSITE_ID">
+            <column name="email"/>
+            <column name="website_id"/>
+        </constraint>
+        <index referenceId="CUSTOMER_ENTITY_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="CUSTOMER_ENTITY_WEBSITE_ID" indexType="btree">
+            <column name="website_id"/>
+        </index>
+        <index referenceId="CUSTOMER_ENTITY_FIRSTNAME" indexType="btree">
+            <column name="firstname"/>
+        </index>
+        <index referenceId="CUSTOMER_ENTITY_LASTNAME" indexType="btree">
+            <column name="lastname"/>
+        </index>
+    </table>
+
+    <table name="customer_address_entity" resource="default" engine="innodb" comment="Customer Address Entity">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="50" comment="Increment ID"/>
+        <column xsi:type="int" name="parent_id" unsigned="true" nullable="true" identity="false"
+                comment="Parent ID"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="smallint" name="is_active" unsigned="true" nullable="false" identity="false"
+                default="1" comment="Is Active"/>
+        <column xsi:type="varchar" name="city" nullable="false" length="255" comment="City"/>
+        <column xsi:type="varchar" name="company" nullable="true" length="255" comment="Company"/>
+        <column xsi:type="varchar" name="country_id" nullable="false" length="255" comment="Country"/>
+        <column xsi:type="varchar" name="fax" nullable="true" length="255" comment="Fax"/>
+        <column xsi:type="varchar" name="firstname" nullable="false" length="255" comment="First Name"/>
+        <column xsi:type="varchar" name="lastname" nullable="false" length="255" comment="Last Name"/>
+        <column xsi:type="varchar" name="middlename" nullable="true" length="255" comment="Middle Name"/>
+        <column xsi:type="varchar" name="postcode" nullable="true" length="255" comment="Zip/Postal Code"/>
+        <column xsi:type="varchar" name="prefix" nullable="true" length="40" comment="Name Prefix"/>
+        <column xsi:type="varchar" name="region" nullable="true" length="255" comment="State/Province"/>
+        <column xsi:type="int" name="region_id" unsigned="true" nullable="true" identity="false"
+                comment="State/Province"/>
+        <column xsi:type="text" name="street" nullable="false" comment="Street Address"/>
+        <column xsi:type="varchar" name="suffix" nullable="true" length="40" comment="Name Suffix"/>
+        <column xsi:type="varchar" name="telephone" nullable="false" length="255" comment="Phone Number"/>
+        <column xsi:type="varchar" name="vat_id" nullable="true" length="255" comment="VAT number"/>
+        <column xsi:type="int" name="vat_is_valid" unsigned="true" nullable="true" identity="false"
+                comment="VAT number validity"/>
+        <column xsi:type="varchar" name="vat_request_date" nullable="true" length="255"
+                comment="VAT number validation request date"/>
+        <column xsi:type="varchar" name="vat_request_id" nullable="true" length="255"
+                comment="VAT number validation request ID"/>
+        <column xsi:type="int" name="vat_request_success" unsigned="true" nullable="true" identity="false"
+                comment="VAT number validation request success"/>
+        <column xsi:type="varchar" name="vn_region" nullable="false" length="255" comment="VN Region"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CUSTOMER_ADDRESS_ENTITY_PARENT_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="customer_address_entity" column="parent_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="CUSTOMER_ADDRESS_ENTITY_PARENT_ID" indexType="btree">
+            <column name="parent_id"/>
+        </index>
+    </table>
+
+    <table name="magenest_blog" resource="default" engine="innodb" comment="Magenest Blog">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="author_id" unsigned="true" nullable="false" identity="false"
+                comment="Author ID"/>
+        <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Title"/>
+        <column xsi:type="text" name="description" nullable="false" comment="Description"/>
+        <column xsi:type="varchar" name="content" nullable="false" length="255" comment="Content"/>
+        <column xsi:type="varchar" name="url_rewrite" nullable="true" length="255" comment="Url Rewrite"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MAGENEST_ENTITY_ID_USER_ID" table="magenest_blog"
+                    column="author_id" referenceTable="admin_user" referenceColumn="user_id" onDelete="CASCADE"/>
+        <index referenceId="MAGENEST_BLOG_TITLE" indexType="btree">
+            <column name="title"/>
+        </index>
+        <index referenceId="MAGENEST_BLOG_CONTENT" indexType="btree">
+            <column name="content"/>
+        </index>
+    </table>
+
+    <table name="magenest_category" resource="default" engine="innodb" comment="magenest category Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="false" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="name" length="255" comment="Name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+         <index referenceId="MAGENEST_CATEGORY_NAME" indexType="btree">
+            <column name="name"/>
+        </index>
+    </table>
+
+    <table name="magenest_blog_category" resource="default" engine="innodb" comment="magenest blog category Table">
+        <column xsi:type="int" name="blog_id" padding="10"  unsigned="true" nullable="false" identity="false" comment="Blog ID"/>
+        <column xsi:type="int" name="category_id" padding="10" unsigned="false" nullable="false" identity="false" comment="Category ID"/>
+        <constraint xsi:type="foreign" referenceId="MAG_BLOG_CATALOGY_ID"
+                    table="magenest_blog_category" column="category_id" referenceTable="magenest_category"
+                    referenceColumn="id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="MAG_CATALOGY_BLOG_ID"
+                    table="magenest_blog_category" column="blog_id" referenceTable="magenest_blog"
+                    referenceColumn="id" onDelete="CASCADE"/>
+    </table>
+
+    <table name="quote" resource="checkout" engine="innodb" comment="Sales Flat Quote">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Store ID"/>
+        <column xsi:type="varchar" name="time_shipping" nullable="true" length="255" comment="Time Shipping"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <column xsi:type="timestamp" name="converted_at" on_update="false" nullable="true" comment="Converted At"/>
+        <column xsi:type="smallint" name="is_active" unsigned="true" nullable="true" identity="false"
+                default="1" comment="Is Active"/>
+        <column xsi:type="smallint" name="is_virtual" unsigned="true" nullable="true" identity="false"
+                default="0" comment="Is Virtual"/>
+        <column xsi:type="smallint" name="is_multi_shipping" unsigned="true" nullable="true"
+                identity="false" default="0" comment="Is Multi Shipping"/>
+        <column xsi:type="int" name="items_count" unsigned="true" nullable="true" identity="false"
+                default="0" comment="Items Count"/>
+        <column xsi:type="decimal" name="items_qty" scale="4" precision="12" unsigned="false" nullable="true"
+                default="0" comment="Items Qty"/>
+        <column xsi:type="int" name="orig_order_id" unsigned="true" nullable="true" identity="false"
+                default="0" comment="Orig Order ID"/>
+        <column xsi:type="decimal" name="store_to_base_rate" scale="4" precision="12" unsigned="false" nullable="true"
+                default="0" comment="Store To Base Rate"/>
+        <column xsi:type="decimal" name="store_to_quote_rate" scale="4" precision="12" unsigned="false" nullable="true"
+                default="0" comment="Store To Quote Rate"/>
+        <column xsi:type="varchar" name="base_currency_code" nullable="true" length="255" comment="Base Currency Code"/>
+        <column xsi:type="varchar" name="store_currency_code" nullable="true" length="255"
+                comment="Store Currency Code"/>
+        <column xsi:type="varchar" name="quote_currency_code" nullable="true" length="255"
+                comment="Quote Currency Code"/>
+        <column xsi:type="decimal" name="grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                default="0" comment="Grand Total"/>
+        <column xsi:type="decimal" name="base_grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                default="0" comment="Base Grand Total"/>
+        <column xsi:type="varchar" name="checkout_method" nullable="true" length="255" comment="Checkout Method"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" identity="false"
+                comment="Customer ID"/>
+        <column xsi:type="int" name="customer_tax_class_id" unsigned="true" nullable="true"
+                identity="false" comment="Customer Tax Class ID"/>
+        <column xsi:type="int" name="customer_group_id" unsigned="true" nullable="true" identity="false"
+                default="0" comment="Customer Group ID"/>
+        <column xsi:type="varchar" name="customer_email" nullable="true" length="255" comment="Customer Email"/>
+        <column xsi:type="varchar" name="customer_prefix" nullable="true" length="40" comment="Customer Prefix"/>
+        <column xsi:type="varchar" name="customer_firstname" nullable="true" length="255" comment="Customer Firstname"/>
+        <column xsi:type="varchar" name="customer_middlename" nullable="true" length="40"
+                comment="Customer Middlename"/>
+        <column xsi:type="varchar" name="customer_lastname" nullable="true" length="255" comment="Customer Lastname"/>
+        <column xsi:type="varchar" name="customer_suffix" nullable="true" length="40" comment="Customer Suffix"/>
+        <column xsi:type="datetime" name="customer_dob" on_update="false" nullable="true" comment="Customer Dob"/>
+        <column xsi:type="text" name="customer_note" nullable="true" comment="Customer Note"/>
+        <column xsi:type="smallint" name="customer_note_notify" unsigned="true" nullable="true"
+                identity="false" default="1" comment="Customer Note Notify"/>
+        <column xsi:type="smallint" name="customer_is_guest" unsigned="true" nullable="true"
+                identity="false" default="0" comment="Customer Is Guest"/>
+        <column xsi:type="varchar" name="remote_ip" nullable="true" length="45" comment="Remote Ip"/>
+        <column xsi:type="varchar" name="applied_rule_ids" nullable="true" length="255" comment="Applied Rule Ids"/>
+        <column xsi:type="varchar" name="reserved_order_id" nullable="true" length="64" comment="Reserved Order ID"/>
+        <column xsi:type="varchar" name="password_hash" nullable="true" length="255" comment="Password Hash"/>
+        <column xsi:type="varchar" name="coupon_code" nullable="true" length="255" comment="Coupon Code"/>
+        <column xsi:type="varchar" name="global_currency_code" nullable="true" length="255"
+                comment="Global Currency Code"/>
+        <column xsi:type="decimal" name="base_to_global_rate" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base To Global Rate"/>
+        <column xsi:type="decimal" name="base_to_quote_rate" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base To Quote Rate"/>
+        <column xsi:type="varchar" name="customer_taxvat" nullable="true" length="255" comment="Customer Taxvat"/>
+        <column xsi:type="varchar" name="customer_gender" nullable="true" length="255" comment="Customer Gender"/>
+        <column xsi:type="decimal" name="subtotal" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Subtotal"/>
+        <column xsi:type="decimal" name="base_subtotal" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Subtotal"/>
+        <column xsi:type="decimal" name="subtotal_with_discount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Subtotal With Discount"/>
+        <column xsi:type="decimal" name="base_subtotal_with_discount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Subtotal With Discount"/>
+        <column xsi:type="int" name="is_changed" unsigned="true" nullable="true" identity="false"
+                comment="Is Changed"/>
+        <column xsi:type="smallint" name="trigger_recollect" unsigned="false" nullable="false"
+                identity="false" default="0" comment="Trigger Recollect"/>
+        <column xsi:type="text" name="ext_shipping_info" nullable="true" comment="Ext Shipping Info"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="QUOTE_STORE_ID_STORE_STORE_ID" table="quote" column="store_id"
+                    referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="QUOTE_CUSTOMER_ID_STORE_ID_IS_ACTIVE" indexType="btree">
+            <column name="customer_id"/>
+            <column name="store_id"/>
+            <column name="is_active"/>
+        </index>
+        <index referenceId="QUOTE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+
+    <table name="magenest_banner" resource="default" engine="innodb" comment="Magenest Banner">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="text" name="name" comment="Name"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Status"/>
+        <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Title"/>
+        <column xsi:type="varchar" name="upload_image" nullable="true" length="255" comment="Upload Image"/>
+        <column xsi:type="varchar" name="link" nullable="true" length="255" comment="link"/>
+        <column xsi:type="varchar" name="add_text" nullable="true" length="255" comment="Text"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <table name="catalog_product_entity" resource="default" engine="innodb" comment="Catalog Product Table">
+        <column xsi:type="varchar" name="comment" nullable="true" length="255" comment="Comment"/>
+        <column xsi:type="varchar" name="upload_image" nullable="true" length="255" comment="Upload Image"/>
+        <column xsi:type="varchar" name="link" nullable="true" length="255" comment="link"/>
+    </table>
+
+    <table name="magenest_movie_attribute" resource="default" engine="innodb" comment="Magenest Banner">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="attribute_id" unsigned="true" nullable="false" identity="false"
+                comment="Attribute ID"/>
+        <column xsi:type="int" name="movie_id" padding="10"  unsigned="false" nullable="false" identity="false" comment="Movie ID"/>
+        <column xsi:type="varchar" name="value" nullable="true" length="255" comment="Value"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MOVIE_ID_ATTRIBUTE_ID"
+                    table="magenest_movie_attribute" column="movie_id" referenceTable="magenest_movie"
+                    referenceColumn="movie_id" onDelete="CASCADE"/>
+    </table>
+
+</schema>
